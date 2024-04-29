@@ -145,8 +145,10 @@ EMAIL_PORT = 465
 # EMAIL_PORT = 587
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
-EMAIL_HOST_USER = 'delivery@gigifreight.com'
-EMAIL_HOST_PASSWORD = 'mikimgbo123$$88'
+# EMAIL_HOST_USER = 'delivery@gigifreight.com'
+# EMAIL_HOST_PASSWORD = 'mikimgbo123$$88'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = 'GIGIFREIGHT LOGISTICS <delivery@gigifreight.com>'
 
 
