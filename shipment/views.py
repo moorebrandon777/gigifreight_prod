@@ -104,15 +104,13 @@ def update_shipment(request, pk):
         'location': saved_shipment.shipment_location,
         'tracking_code': saved_shipment.tracking_number,
         })
-        print(saved_shipment.receiver_name)
-        print(saved_shipment.shipment_location)
-        try:
-            send_my_email("Shipment location update", message, saved_shipment.receiver_email)
-        except:
-            pass
-        finally:
-            messages.success(request, 'Shipment is updated successfully')
-            return redirect('shipment:dashboard')
+        # try:
+        send_my_email("Shipment location update", message, saved_shipment.receiver_email)
+        # except:
+        #     pass
+        # finally:
+        messages.success(request, 'Shipment is updated successfully')
+        return redirect('shipment:dashboard')
     
     return render(request, 'shipment/update_shipment.html', {'form':form})
 
