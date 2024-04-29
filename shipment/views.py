@@ -9,6 +9,7 @@ from django.views.generic.list import ListView
 from django.views.generic import CreateView
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
+from django.conf import settings
 
 
 
@@ -39,7 +40,7 @@ def send_my_email(subject, message, receiver):
 	email = EmailMessage(
 		subject,
 		message,
-		"GIGIFREIGHT LOGISTICS <delivery@gigifreight.com>",
+		settings.DEFAULT_FROM_EMAIL,
 		[receiver],
 		)
 	email.content_subtype = "html"
