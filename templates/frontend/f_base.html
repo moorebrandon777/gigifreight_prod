@@ -34,6 +34,19 @@
                 width: 180px;
             }
         }
+
+        #google_translate_element {
+            color: transparent;
+        }
+        #google_translate_element a {
+            display: none;
+        }
+        select.google_translate_element {
+            color: black;
+        }
+        div.goog-te-gadget {
+            color: transparent !important;
+        }
     </style>
 
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/apple-touch-icon.png' %}">
@@ -48,7 +61,13 @@
     {% endblock %}
     {% include './footer.html' %}
     
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+        }
+    </script>
     
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     
 
@@ -67,21 +86,7 @@
     <!-- Template Javascript -->
     <script src="{% static 'frontend/js/main.js' %}"></script>
 
-    <script type="text/javascript"
-    src=
-    "https://translate.google.com/translate_a/element.js?
-    cb=googleTranslateElementInit">
-    </script>
-
-    <!-- google translate -->
-    <script type="text/javascript">
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement(
-                {pageLanguage: 'en'},
-                'google_translate_element'
-            );
-        }
-    </script>
+    
 
     
 </body>
