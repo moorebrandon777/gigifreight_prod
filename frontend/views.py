@@ -49,13 +49,12 @@ class ContactView(TemplateView):
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
-        print(subject)
         try:
             send_mail(
                 'Message From '+name+' <'+email+'>',
                 message,
-                'info@avahtrans.com',
-                ['info@avahtrans.com'],
+                'delivery@gigifreight.com',
+                ['delivery@gigifreight.com'],
                 fail_silently=False,
             )
             messages.success(request, 'Email sent successfully, we will get back to you as soon as possible')

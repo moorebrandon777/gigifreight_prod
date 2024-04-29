@@ -39,7 +39,7 @@ def send_my_email(subject, message, receiver):
 	email = EmailMessage(
 		subject,
 		message,
-		"AvahTrans Delivery <deliveries@avahtrans.com>",
+		"GIGIFREIGHT LOGISTICS <delivery@gigifreight.com>",
 		[receiver],
 		)
 	email.content_subtype = "html"
@@ -85,7 +85,7 @@ class CreateShipmentView(LoginRequiredMixin, CreateView):
 
         #send email
         try:
-            send_my_email("Shipment location update", message, saved_shipment.receiver_email)
+            send_my_email("Shipment dispatch notice", message, saved_shipment.receiver_email)
         except:
             pass
         finally:
@@ -107,7 +107,7 @@ def update_shipment(request, pk):
         print(saved_shipment.receiver_name)
         print(saved_shipment.shipment_location)
         try:
-            send_my_email("Shipment dispatch notice", message, saved_shipment.receiver_email)
+            send_my_email("Shipment location update", message, saved_shipment.receiver_email)
         except:
             pass
         finally:
