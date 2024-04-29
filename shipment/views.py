@@ -100,18 +100,18 @@ def update_shipment(request, pk):
     form = ShipmentUpdateForm(request.POST or None, instance=shipment)
     if form.is_valid():
         saved_shipment = form.save()
-        message = render_to_string('email/shipment_created_email.html',{
+        message = render_to_string('email/shipment_updated_email.html',{
         'name': saved_shipment.receiver_name,
         'location': saved_shipment.shipment_location,
         'tracking_code': saved_shipment.tracking_number,
         })
-        # try:
-        send_my_email("Shipment location update", message, saved_shipment.receiver_email)
-        # except:
-        #     pass
-        # finally:
-        messages.success(request, 'Shipment is updated successfully')
-        return redirect('shipment:dashboard')
+        try:
+            send_my_email("Shipment location update", message, saved_shipment.receiver_email)
+        except:
+            pass
+        finally:
+            messages.success(request, 'Shipment is updated successfully')
+            return redirect('shipment:dashboard')
     
     return render(request, 'shipment/update_shipment.html', {'form':form})
 
