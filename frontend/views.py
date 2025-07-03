@@ -53,8 +53,8 @@ class ContactView(TemplateView):
             send_mail(
                 'Message From '+name+' <'+email+'>',
                 message,
-                'delivery@gigifreight.com',
-                ['delivery@gigifreight.com'],
+                'delivery@gigifreight.org',
+                ['delivery@gigifreight.org'],
                 fail_silently=False,
             )
             messages.success(request, 'Email sent successfully, we will get back to you as soon as possible')

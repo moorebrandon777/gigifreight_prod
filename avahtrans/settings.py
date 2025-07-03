@@ -155,7 +155,7 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')  
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')  
 EMAIL_USE_SSL = True
-DEFAULT_FROM_EMAIL = 'GIGIFREIGHT EXPRESS <deliveries@gigifreight.online>'
+DEFAULT_FROM_EMAIL = 'GIGIFREIGHT EXPRESS <deliveries@gigifreight.org>'
 
 
 # STORAGES = {
