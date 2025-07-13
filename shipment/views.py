@@ -36,17 +36,27 @@ def loginUser(request):
     return render(request, 'frontend/login.html')
 
 
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 def send_my_email(subject, message, receiver):
-	email = EmailMessage(
-		subject,
-		message,
-		settings.DEFAULT_FROM_EMAIL,
-		[receiver],
-		)
-	email.content_subtype = "html"
-	email.fail_silently = False
-	email.send()
-	return message
+    if not receiver:
+        raise ValueError("Receiver email address is required for email to send.")
+    
+    try:
+        validate_email(receiver)
+    except ValidationError:
+        raise ValueError(f"Invalid email address: {receiver}")
+    
+    email = EmailMessage(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [receiver],
+    )
+    email.content_subtype = "html"
+    email.fail_silently = False
+    email.send()
+    return message
 
 
 class DashboardView(LoginRequiredMixin, ListView):
@@ -87,10 +97,14 @@ class CreateShipmentView(LoginRequiredMixin, CreateView):
         #send email
         try:
             send_my_email("Shipment dispatch notice", message, saved_shipment.receiver_email)
-        except:
-            pass
-        finally:
             messages.success(self.request, 'Your shipment is added successfully')
+        except Exception as e:
+            messages.warning(
+                self.request,
+                f'Your shipment is added successfully but email could not be sent to the receiver due to. Error: {str(e)}'
+            )
+        finally:
+            
             return HttpResponseRedirect(reverse_lazy('shipment:add_shipment'))
     
 
@@ -107,10 +121,14 @@ def update_shipment(request, pk):
         })
         try:
             send_my_email("Shipment location update", message, saved_shipment.receiver_email)
-        except:
-            pass
+            messages.success(request, 'Your shipment is updated successfully and email sent to the receiver.')
+        except Exception as e:
+            messages.warning(
+                request,
+                f'Your shipment is updated successfully but email could not be sent to the receiver due to. Error: {str(e)}'
+            )
         finally:
-            messages.success(request, 'Shipment is updated successfully')
+            # messages.success(request, 'Shipment is updated successfully')
             return redirect('shipment:dashboard')
     
     return render(request, 'shipment/update_shipment.html', {'form':form})
